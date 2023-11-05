@@ -48,6 +48,138 @@ This JUnit test fails with the output "arrays first differed at element [2]; exp
 
 ## Researching Commands
 
+### Option 1: `-size n`
+
+The `find -size n` option allows for the user to search the file directory for files that are less than (-n), equal to (n), or greater than (+n) a given file size. The file path is returned if the size in bytes, divided by 512, is (+/-)n. This essentially saying that n=1 is equal to a half kilobyte.
+
+#### Example 1:
+
+The `-size` option can be used to find files above a certain size, if for example you wanted to find overly large files that may be cluttering your system. In this example I search for all files greater than n=500, which is all flies above 250KB.
+
+```console
+$ find ./technical -size +500
+
+./technical/911report/chapter-13.4.txt
+./technical/911report/chapter-13.5.txt
+./technical/911report/chapter-3.txt
+./technical/government/Gen_Account_Office/d01591sp.txt
+./technical/government/Gen_Account_Office/Statements_Feb28-1997_volume.txt
+```
+
+#### Example 2:
+
+I discovered an interesting use for `-size` while experimenting with the file sizes. It can be used to find any empty files in a directory. Since the option rounds up to the nearest integer, any file with any file size will automatically be considered to be 1 or greater. So by using n=0, we can find all files that have 0 file size, or are empty. In my example, I placed a file inside `/government` called `testing.txt` that contains no text. However, as you can see I encountered an interesting issue: directories are considered to have no file size. I will address how this issue can be solved in a later example.
+
+```console
+$ fine ./technical -size 0
+
+./technical
+./technical/911report
+./technical/biomed
+./technical/government
+./technical/government/About_LSC
+./technical/government/Alcohol_Problems
+./technical/government/Env_Prot_Agen
+./technical/government/Gen_Account_Office
+./technical/government/Media
+./technical/government/Post_Rate_Comm
+./technical/government/testing.txt
+./technical/plos
+```
+
+### Option 2: `-mtime n`
+
+The `find -mtime n` option can be used to see which files have been modified in the last n days. This works by taking the time between the file's last modification and the time the command was run, in seconds, and divies by 86,400, which is the number of seconds in a day.
+
+#### Example 1:
+
+The `-mtime` option can be useful for finding files that have been recently modified, incase you accidentally modified a file and you weren't sure which one, or possibly to see if anyone else might have modified a file recently. In my example, n=-1, so the command searches for any files modified in the last day. Since I just created the file `testing.txt` today, the command returns that file path, as well as the directory since it was technically modified as well.
+
+```console
+$find ./technical -mtime -1
+
+./technical/government
+./technical/government/testing.txt
+```
+
+#### Example 2:
+
+Another use for the `-mtime` can be to see if any files were modified on a specific date. This can be useful to find files you might have worked on a specific date, or possibly if someone might have modified files on a date that may have had access to your system. In my example, I search for files modified 5 days ago, which is the day I made the directory. All the files are printed, so I will only paste a few lines of the output.
+
+```console
+$fine ./technical -mtime 5
+
+...<Many more files>...
+./technical/plos/pmed.0020268.txt
+./technical/plos/pmed.0020272.txt
+./technical/plos/pmed.0020273.txt
+./technical/plos/pmed.0020274.txt
+./technical/plos/pmed.0020275.txt
+./technical/plos/pmed.0020278.txt
+./technical/plos/pmed.0020281.txt
+```
+
+### Option 3: `-prune`
+
+The `find -prune` option can be used to exclude certain directories from a search. The command will not traverse the given directory, skipping over it as it searches the rest of the files.
+
+#### Example 1:
+
+In this example, `-print` is used to tell the command to print the files found to the console. This is usually implied by default, but is needed in this case. `-name plos` tells the `-prune` option to ignore directories named plos, and therefore they will not be printed to console. As before, this will print every file in the `/technical` directory, so I will cut it off, but you can see that compared to the previous search, the `/plos` files are not at the end, like they were before. (The command does still print the name of the directory in this use case, however.)
+
+```console
+$find ./technical -print -name plos -prune
+
+...<Many more files>...
+./technical/government/Post_Rate_Comm/Mitchell_RMVancouver.txt
+./technical/government/Post_Rate_Comm/Mitchell_spyros-first-class.txt
+./technical/government/Post_Rate_Comm/Redacted_Study.txt
+./technical/government/Post_Rate_Comm/ReportToCongress2002WEB.txt
+./technical/government/Post_Rate_Comm/WolakSpeech_usps.txt
+./technical/government/testing.txt
+./technical/plos
+```
+
+#### Example 2:
+
+Another example of using `-prune` can be used by combining it with other commands. In this example, I search for small files in the directory, those less than n=5. However, I skip the files in the government directory, which are not printed to console. This can be useful when you want to exclude a certain directory from your search, but still want to check the other directories.
+
+```console
+$ find ./technical -size -5 -print -name government -prune
+
+./technical
+./technical/911report
+./technical/biomed
+./technical/biomed/smallfile.txt
+./technical/government
+./technical/plos
+./technical/plos/pmed.0020028.txt
+./technical/plos/pmed.0020048.txt
+./technical/plos/pmed.0020082.txt
+./technical/plos/pmed.0020120.txt
+./technical/plos/pmed.0020157.txt
+./technical/plos/pmed.0020191.txt
+./technical/plos/pmed.0020192.txt
+./technical/plos/pmed.0020226.txt
+```
+
+### Option 4: `-a`
+
+My last option, `-a` is not a direct modifier to find, but rather allows different options to be combined together, similar to an and statement (`&&`) in C++. This will have an immense amount of usecases, and is incredibly useful as it allows you to have much more control over your search.
+
+#### Example 1:
+
+My first example will cover how to fix the issue from my second example while using `find -size n`, where the command was also printing the paths of the directories. By using `-a`, you can combine two searches `-type f` and `-size 0`, which will only print the path of console if it is both a file type and is size 0.
+
+```console
+$ find ./technical -size 0 -a -type f
+
+./technical/government/testing.txt
+```
+
+#### Example 2:
+
+
 
 
 

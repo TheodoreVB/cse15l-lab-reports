@@ -68,7 +68,7 @@ $ find ./technical -size +500
 
 #### Example 2:
 
-I discovered an interesting use for `-size` while experimenting with the file sizes. It can be used to find any empty files in a directory. Since the option rounds up to the nearest integer, any file with any file size will automatically be considered to be 1 or greater. So by using n=0, we can find all files that have 0 file size, or are empty. In my example, I placed a file inside `/government` called `testing.txt` that contains no text. However, as you can see I encountered an interesting issue: directories are considered to have no file size. I will address how this issue can be solved in a later example.
+I discovered an interesting use for `-size` while experimenting with the file sizes. It can be used to find any empty files in a directory. Since the option rounds up to the nearest integer, any file with any file size will automatically be considered to be 1 or greater. So by using n=0, we can find all files that have 0 file size, or are empty. In my example, I placed a file inside `/government` called `testing.txt` that contains no text. However, as you can see I encountered an interesting issue: directories are considered to have no file size. This can be solved by adding the `-type f` operation to the commmand to search for files that are size 0.
 
 ```console
 $ fine ./technical -size 0
@@ -85,6 +85,11 @@ $ fine ./technical -size 0
 ./technical/government/Post_Rate_Comm
 ./technical/government/testing.txt
 ./technical/plos
+
+
+$ find ./technical -size 0 -type f
+
+./technical/government/testing.txt
 ```
 
 ### Option 2: `-mtime n`
@@ -163,23 +168,64 @@ $ find ./technical -size -5 -print -name government -prune
 ./technical/plos/pmed.0020226.txt
 ```
 
-### Option 4: `-a`
+### Option 4: `-o`
 
-My last option, `-a` is not a direct modifier to find, but rather allows different options to be combined together, similar to an and statement (`&&`) in C++. This will have an immense amount of usecases, and is incredibly useful as it allows you to have much more control over your search.
+My last option, `-o` is not a direct modifier to find, but rather allows different options to be combined together, similar to an or statement (`||`) in C++. This will have an immense amount of usecases, and is incredibly useful as it allows you to have much more control over your search.
 
 #### Example 1:
 
-My first example will cover how to fix the issue from my second example while using `find -size n`, where the command was also printing the paths of the directories. By using `-a`, you can combine two searches `-type f` and `-size 0`, which will only print the path of console if it is both a file type and is size 0.
+By using `-o` you can combine multiple statements into one command, allowing you search for different file names at once. In this example I am able to search the directory for two different file names at once, anything with "Law" or "chapter" at the beginning of the filename. This is very useful because you may be looking for several files at once, and instead of having to run several commands to do so, you can just use one command with multiple entries.
 
 ```console
-$ find ./technical -size 0 -a -type f
+$ find ./technical -name "Law*" -o -name "chapter*"
 
-./technical/government/testing.txt
+./technical/911report/chapter-1.txt
+./technical/911report/chapter-10.txt
+./technical/911report/chapter-11.txt
+./technical/911report/chapter-12.txt
+./technical/911report/chapter-13.1.txt
+./technical/911report/chapter-13.2.txt
+./technical/911report/chapter-13.3.txt
+./technical/911report/chapter-13.4.txt
+./technical/911report/chapter-13.5.txt
+./technical/911report/chapter-2.txt
+./technical/911report/chapter-3.txt
+./technical/911report/chapter-5.txt
+./technical/911report/chapter-6.txt
+./technical/911report/chapter-7.txt
+./technical/911report/chapter-8.txt
+./technical/911report/chapter-9.txt
+./technical/government/Media/Law-school_grads.txt
+./technical/government/Media/Lawyer_Web_Survey.txt
+./technical/government/Media/Law_Award_from_College.txt
+./technical/government/Media/Law_Schools.txt
 ```
 
 #### Example 2:
 
+Another use of `-o` can be to combine it with the `-prune` option. In this example, I wanted to search for any files without the .txt extension that are also files. However, the .git folder has several of these files, but I am not interested in those. So I first prune that file, and then using the `-or` option, am able to search the rest of the directory for the remaining files.
 
+```console
+$ find . -name .git -prune -o ! -name "*.txt" -type f
+
+./.git
+./count-txts.sh
+./DocSearchServer.class
+./DocSearchServer.java
+./FileHelpers.class
+./Handler.class
+./lib/hamcrest-core-1.3.jar
+./lib/junit-4.13.2.jar
+./README.md
+./Server.class
+./Server.java
+./ServerHttpHandler.class
+./start.sh
+./test.sh
+./TestDocSearch.class
+./TestDocSearch.java
+./URLHandler.class
+```
 
 
 

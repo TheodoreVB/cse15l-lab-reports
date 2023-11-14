@@ -52,6 +52,8 @@ This JUnit test fails with the output "arrays first differed at element [2]; exp
 
 The `find -size n` option allows for the user to search the file directory for files that are less than (-n), equal to (n), or greater than (+n) a given file size. The file path is returned if the size in bytes, divided by 512, is (+/-)n. This essentially saying that n=1 is equal to a half kilobyte.
 
+Source: Using `man find`, I read the different options and experimented with their uses in VS Code.
+
 #### Example 1:
 
 The `-size` option can be used to find files above a certain size, if for example you wanted to find overly large files that may be cluttering your system. In this example I search for all files greater than n=500, which is all flies above 250KB.
@@ -96,6 +98,8 @@ $ find ./technical -size 0 -type f
 
 The `find -mtime n` option can be used to see which files have been modified in the last n days. This works by taking the time between the file's last modification and the time the command was run, in seconds, and divies by 86,400, which is the number of seconds in a day.
 
+Source: Using `man find`, I read the different options and experimented with their uses in VS Code.
+
 #### Example 1:
 
 The `-mtime` option can be useful for finding files that have been recently modified, incase you accidentally modified a file and you weren't sure which one, or possibly to see if anyone else might have modified a file recently. In my example, n=-1, so the command searches for any files modified in the last day. Since I just created the file `testing.txt` today, the command returns that file path, as well as the directory since it was technically modified as well.
@@ -127,6 +131,8 @@ $fine ./technical -mtime 5
 ### Option 3: `-prune`
 
 The `find -prune` option can be used to exclude certain directories from a search. The command will not traverse the given directory, skipping over it as it searches the rest of the files.
+
+Source: Using `man find`, I read the different options and experimented with their uses in VS Code.
 
 #### Example 1:
 
@@ -171,6 +177,8 @@ $ find ./technical -size -5 -print -name government -prune
 ### Option 4: `-o`
 
 My last option, `-o` is not a direct modifier to find, but rather allows different options to be combined together, similar to an or statement (`||`) in C++. This will have an immense amount of usecases, and is incredibly useful as it allows you to have much more control over your search.
+
+Source: Using `man find`, I read the different options and experimented with their uses in VS Code.
 
 #### Example 1:
 

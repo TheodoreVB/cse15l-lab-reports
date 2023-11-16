@@ -13,7 +13,7 @@ Keys Pressed: `ieng6<enter>`
 
 ## Clone fork using SSH URL
 
-Since I wouldn't have typically cloned a repository recently, I will just use the usual method for cloning, witch is `git clone git@github.com:TheodoreVB/lab7.git`
+Since I wouldn't have typically cloned a repository recently, I will just use the usual method for cloning, which is `git clone git@github.com:TheodoreVB/lab7.git`, using the SSH URL I copied to my clipboard from GitHub.
 
 Keys Pressed: `git<space>clone<space> <ctrl-v>`
 

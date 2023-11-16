@@ -57,9 +57,9 @@ Keys Pressed: `<up><up><enter>`
 
 ## Commit and push to GitHub
 
-Since we know the process to commit and push to GitHub, we can combine all 3 of the commands into one line. To do this however you will need to use `-m <message>` for the commit message.
+Since we know the process to commit and push to GitHub, we can combine all 3 of the commands, `git add`, `git commit`, and `git push`, into one line. We can use `-m <message>` for the commit message so we don't have to type it into vim when it pops up.
 
-
+Keys Pressed: `git<space>add<space>ListExamples.java; git<space>commit<space>-m<space>"Changed Index1 -> Index2"; git<space>push <enter>`
 
 
 

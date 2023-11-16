@@ -8,7 +8,8 @@ The goal with this line of code was to create a custom command in my bash, that 
 
 Keys Pressed: `ieng6<enter>`
 
-**INSERT IMAGE**
+![Image](ieng6.png)
+
 
 ## Clone fork using SSH URL
 
@@ -16,7 +17,8 @@ Since I wouldn't have typically cloned a repository recently, I will just use th
 
 Keys Pressed: `git<space>clone<space> <ctrl-v>`
 
-**INSERT IMAGE**
+![Image](git_clone.png)
+
 
 ## First test run
 
@@ -24,7 +26,8 @@ To run the test file, I would first have to cd into the correct directory using 
 
 Keys Pressed: `cd<space>lab7<enter> ls<enter> bash<space>test.sh<enter>`
 
-**INSERT IMAGE**
+![Image](first_test.png)
+
 
 ## Edit the code
 
@@ -34,18 +37,23 @@ Keys Pressed: `vim<space>ListExamples.java :44<enter> e cl2<esc> :wq<enter>`
 
 After using `vim ListExamples.java`:
 
+![Image](Step1.png)
 
 After using `:44`:
 
+![Image](Step2.png)
 
 After using `e`:
 
+![Image](Step3.png)
 
 After using `cl2`:
 
+![Image](Step4.png)
 
 After using `:wq`:
 
+![Image](Step5.png)
 
 
 ## Second test run
@@ -54,6 +62,8 @@ To run the `test.sh` file again, we will use bash's history function to make it 
 
 Keys Pressed: `<up><up><enter>`
 
+![Image](second_test.png)
+
 
 ## Commit and push to GitHub
 
@@ -61,16 +71,4 @@ Since we know the process to commit and push to GitHub, we can combine all 3 of 
 
 Keys Pressed: `git<space>add<space>ListExamples.java; git<space>commit<space>-m<space>"Changed Index1 -> Index2"; git<space>push <enter>`
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+![Image](gitcommit.png)

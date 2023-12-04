@@ -15,7 +15,7 @@ Screenshot 2:
 Screenshot 3:
 ![Image](buggyFailedIncorrect.png)
 
-Code:
+Bash Code:
 ```bash
 rm -rf student-submission
 rm -rf grading-area
@@ -67,6 +67,41 @@ failedTests=$(echo "$failedTestsLine" | grep -oE '[0-9]+')
 echo "Failed tests: $failedTests"
 ```
 
+Java Code:
+```java
+import static org.junit.Assert.*;
+import org.junit.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class IsMoon implements StringChecker {
+  public boolean checkString(String s) {
+    return s.toLowerCase().contains("moon");
+  }
+}
+
+public class TestListExamples {
+  @Test(timeout = 500)
+  public void testMergeRightEnd() {
+    List<String> left = Arrays.asList("a", "b", "c");
+    List<String> right = Arrays.asList("a", "d");
+    List<String> merged = ListExamples.merge(left, right);
+    List<String> expected = Arrays.asList("a", "a", "b", "c", "d");
+    assertEquals(expected, merged);
+  }
+
+  @Test(timeout = 500)
+  public void testFilter() {
+    List<String> testList = Arrays.asList("First", "Moon", "Third", "moonshine", "Fourth", "Moonlight", "Fifth", "light the MOON");
+    List<String> expectedList = Arrays.asList( "Moon", "moonshine", "Moonlight", "light the MOON");
+    assertEquals(expectedList, ListExamples.filter(testList, new IsMoon()));
+  }
+
+}
+```
+
 
 ### TA:
 
@@ -75,7 +110,7 @@ The `$?` variable holds the error code of the last command run in the script. Yo
 
 ### Student:
 
-Oops, I realize I was used to java following the javac command on the line after, so I didn't think about the fact the error code being stored in `$?` was the error code being returned by the java command, and not the javac command, so it only knew that an error existed when the code ran, not the compiler. Here's a screenshot of it working correctly now! Thank you!
+Oops, I realize I was used to java following the javac command on the line after, so I didn't think about the fact the error code being stored in `$?` was the error code being returned by the java command, and not the javac command, so it only knew that an error existed when the code ran, not the compiler. I fixed it by moving the compile error check between the javac and java commands as shown below. Also, here's a screenshot of it working correctly now! Thank you!
 
 Fixed lines:
 ```bash

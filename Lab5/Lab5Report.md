@@ -129,3 +129,8 @@ java -cp ".;./grading-area;lib/hamcrest-core-1.3.jar;lib/junit-4.13.2.jar" org.j
 
 ![Image](fixed.png)
 
+
+
+## Reflection
+
+I think learning about VIM was the most interesting and potentially useful program. Previously, all of my code has been done in IDEs, which isn't bad, but I can see being slowing than VIM once you get used to it. Having to switch between keyboard and mouse constantly can take up time, and VIM has some neat shortcuts for changing chunks of code easily since code is usually predictable. Of course, the other benefit is being able to easily modify files on a remote machine which will likely come up here and there throughout my career. I plan on trying to get used to and use VIM more frequently as I go through my time at UCSD, but I assume it will take a while to get completely used to.
